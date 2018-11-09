@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
-class QTextEdit;
+#include <QTextEdit>
+//class QTextEdit;
 
 class MainWindow : public QMainWindow
 {

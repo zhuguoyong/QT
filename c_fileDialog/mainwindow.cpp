@@ -33,16 +33,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::openFile()
 {
+    //QFileDialog::getOpenFileName获取需要打卡的文件路径
     QString path = QFileDialog::getOpenFileName(this, tr("Open File"), ".", tr("Text Files(*.txt)"));
-    if(!path.isEmpty()) {
-        QFile file(path);
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    if(!path.isEmpty()) {//判断路径是否为空
+        QFile file(path);//文件对象
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {//只读的打开txt文件
             QMessageBox::warning(this, tr("Read File"), tr("Cannot open file:\n%1").arg(path));
             return;
         }
-        QTextStream in(&file);
-        textEdit->setText(in.readAll());
-        file.close();
+        QTextStream in(&file);//文本流对象
+        textEdit->setText(in.readAll());//读取所有文本，设置到文本框
+        file.close();//关闭文件
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
     }
@@ -58,7 +59,7 @@ void MainWindow::saveFile()
             return;
         }
         QTextStream out(&file);
-        out << textEdit->toPlainText();
+        out << textEdit->toPlainText();//输出重定向：将文本框内容重定向到文本流
         file.close();
     } else {
         QMessageBox::warning(this, tr("Path"), tr("You did not select any file."));
